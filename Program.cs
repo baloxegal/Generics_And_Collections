@@ -6,10 +6,13 @@ namespace Generics_And_Collections
     {
         static void Main(string[] args)
         {
+            
+
             IFlyable typeFly = new Fly();
             Profile cargoProfile = new CargoProfile();
             Car<Profile, IMoveable> car1 = new Car<Profile, IMoveable>(cargoProfile, typeFly);
 
+            
             car1.TypeMove.MoveRight();
             ((IFlyable)car1.TypeMove).MoveUp();
             var a = car1.Profile as CargoProfile;
@@ -27,7 +30,7 @@ namespace Generics_And_Collections
             ((PassangerProfile)car2.Profile).Tickets = 40;
             ((PassangerProfile)car2.Profile).Rout();
             
-            CarPark<Car<Profile, IMoveable>> carPark = new CarPark<Car<Profile, IMoveable>>(10);
+            CarParkService<Car<Profile, IMoveable>> carPark = new CarParkService<Car<Profile, IMoveable>>(10);
 
             carPark.park[0] = car1;           
             carPark.park[1] = car2;
