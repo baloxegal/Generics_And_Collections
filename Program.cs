@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Generics_And_Collections
 {
@@ -10,7 +11,8 @@ namespace Generics_And_Collections
             IFlyable typeFly = new Fly();
             Profile cargoProfile = new CargoProfile();
             Car<Profile, IMoveable> car1 = new Car<Profile, IMoveable>(cargoProfile, typeFly, Fuel.DIESEL, "Big Trailer");
-            
+            car1.Registry = "CVB 825";
+
             //NULLABLE
             car1.Wheeles = null;
             Console.WriteLine($"It is a example of NULLABLE: Wheels = {car1.Wheeles ?? 0}");
@@ -46,6 +48,7 @@ namespace Generics_And_Collections
             IMoveable typeMove = new Move();
             Profile passangerProfile = new PassangerProfile();
             Car<Profile, IMoveable> car2 = new Car<Profile, IMoveable>(passangerProfile, typeMove, Fuel.PETROL);
+            car2.Registry = "CMU 999";
 
             car2.TypeMove.MoveRight();
             car2.TypeMove.MoveLeft();           
@@ -74,7 +77,7 @@ namespace Generics_And_Collections
             }
             Console.WriteLine("=============================================");
 
-            //DICTIONARY AND LIST
+            //DICTIONARY, LIST AND SET
             carPark.DestinationsDistanceFromBase.Add(Destination.BALTI, 150);
             carPark.DestinationsDistanceFromBase.Add(Destination.OCNITA, 240);
             carPark.DestinationsDistanceFromBase.Add(Destination.CIMISLIA, 75);
@@ -84,7 +87,40 @@ namespace Generics_And_Collections
             }
             Console.WriteLine("=============================================");
 
-            carPark.CarDriversList.Add(KeyValuePair.Create<Car<Profile, IMoveable>, Driver>(carPark.park[0]), Driver.VALERICA);
+            carPark.CarDriversList.Add(KeyValuePair.Create<Car<Profile, IMoveable>, Driver>(car1, Driver.VALERICA));
+            carPark.CarDriversList.Add(KeyValuePair.Create<Car<Profile, IMoveable>, Driver>(car2, Driver.TOLICA));
+            
+            foreach(var l in carPark.CarDriversList)
+                Console.WriteLine($"It is cars/drivers list {l.Key.Registry ?? "NULL"} : {l.Value}");
+            Console.WriteLine("=============================================");
+
+            carPark.CarDriverSet.Add(KeyValuePair.Create<Car<Profile, IMoveable>, Driver>(car1, Driver.VALERICA));
+            carPark.CarDriverSet.Add(KeyValuePair.Create<Car<Profile, IMoveable>, Driver>(car2, Driver.TOLICA));
+            var s = carPark.CarDriverSet.Add(carPark.CarDriversList.ElementAt(0));
+            Console.WriteLine(s);
+
+            foreach (var l in carPark.CarDriverSet)
+                Console.WriteLine($"It is cars/drivers set {l.Key.Registry ?? "NULL"} : {l.Value}");
+            Console.WriteLine("=============================================");
+
+            //COMPARE
+            Car<Profile, IMoveable> car3 = new Car<Profile, IMoveable>(cargoProfile, typeFly, Fuel.DIESEL, "Big Trailer");
+            
+            Console.WriteLine(car1.Equals(car2));
+            Console.WriteLine(car1.CompareTo(car2) == 0 ? "True" : "False");//Compare by FuelType
+            Console.WriteLine(Car<Profile, IMoveable>.myComparator.Compare(car1, car2) == 0 ? "True" : "False");// Compare by custom Comparator
+            Console.WriteLine(Car<Profile, IMoveable>.myComparator.Equals(car1, car2));// Compare by custom EqualityComparator
+            Console.WriteLine("=============================================");
+            Console.WriteLine(car1.Equals(car3));
+            Console.WriteLine(car1.CompareTo(car3) == 0 ? "True" : "False");
+            Console.WriteLine(Car<Profile, IMoveable>.myComparator.Compare(car1, car3) == 0 ? "True" : "False");
+            Console.WriteLine(Car<Profile, IMoveable>.myComparator.Equals(car1, car3));
+            Console.WriteLine("=============================================");
+            Console.WriteLine(car2.Equals(car3));
+            Console.WriteLine(car2.CompareTo(car3) == 0 ? "True" : "False");
+            Console.WriteLine(Car<Profile, IMoveable>.myComparator.Compare(car2, car3) == 0 ? "True" : "False");
+            Console.WriteLine(Car<Profile, IMoveable>.myComparator.Equals(car2, car3));
+            Console.WriteLine("=============================================");
 
             //MY GENERIC COLLECTION CLASS
             MyGenericCollection<int> myCollection = new MyGenericCollection<int>();

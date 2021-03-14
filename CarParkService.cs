@@ -9,11 +9,13 @@ namespace Generics_And_Collections
         public T[] park;
         public Dictionary<U, int> DestinationsDistanceFromBase;        
         public List<KeyValuePair<T, D>> CarDriversList;
+        public HashSet<KeyValuePair<T, D>> CarDriverSet;
         public CarParkService(int length)
         {
             park = new T[length];
             DestinationsDistanceFromBase = new Dictionary<U, int>();
             CarDriversList = new List<KeyValuePair<T, D>>();
+            CarDriverSet = new HashSet<KeyValuePair<T, D>>();
         }
 
     }
