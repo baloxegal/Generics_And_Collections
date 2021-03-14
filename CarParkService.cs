@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace Generics_And_Collections
 {
-    class CarParkService<T, U> where T : Car<Profile, IMoveable> where U : Enum
+    class CarParkService<T> where T : Car<Profile, IMoveable>
     {        
         public T[] park;
-        public Dictionary<U, int> DestinationsDistanceFromBase;        
+        public Dictionary<Destination, int> DestinationsDistanceFromBase;        
 
         public CarParkService(int length)
         {
