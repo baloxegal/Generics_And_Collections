@@ -24,6 +24,11 @@ namespace Generics_And_Collections
             get;
             set;
         }
+        public int? Wings
+        {
+            get;
+            set;
+        }
         public Fuel FuelType
         {
             get;
@@ -62,7 +67,7 @@ namespace Generics_And_Collections
         }
         public override string ToString()
         {
-            return $"Car profile is: {Profile}, and it is {TypeMove}, and fuel type is {FuelType}, and trailer is {Trailer}";
+            return $"Car profile is: {Profile}, and it is {TypeMove}, and fuel type is {FuelType}, and trailer is {Trailer ?? "NULL"}";
         }        
     }
     public enum Fuel { PETROL, DIESEL, GAS };

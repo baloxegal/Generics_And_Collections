@@ -4,17 +4,19 @@ using System.Collections.Generic;
 
 namespace Generics_And_Collections
 {
-    class CarParkService<T> where T : Car<Profile, IMoveable>
+    class CarParkService<T, U, D> where T : Car<Profile, IMoveable> where U : Enum where D : Enum
     {        
         public T[] park;
-        public Dictionary<Destination, int> DestinationsDistanceFromBase;        
-
+        public Dictionary<U, int> DestinationsDistanceFromBase;        
+        public List<KeyValuePair<T, D>> CarDriversList;
         public CarParkService(int length)
         {
             park = new T[length];
-            DestinationsDistanceFromBase = new Dictionary<Destination, int>();
+            DestinationsDistanceFromBase = new Dictionary<U, int>();
+            CarDriversList = new List<KeyValuePair<T, D>>();
         }
 
     }
     public enum Destination { CHISINAU, BALTI, OCNITA, CIMISLIA, TIRASPOL }
+    public enum Driver { PETRICA, VASILICA, VALERICA, TOLICA, SERGICA }
 }
